@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+    content="CogACT: A Foundational Vision-Language-Action Model for Synergizing Cognition and Action in Robotic Manipulation">
+  <meta name="keywords" content="VLA,Robotics,CoACT,CogACT">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>CogACT: A Foundational Vision-Language-Action Model for Synergizing Cognition and Action in Robotic
+    Manipulation</title>
+
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro" rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+  <!--<link rel="icon" href="./static/images/favicon.svg">-->
+
+  <script src="./static/js/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+
+<body>
+
+  <!--
+<nav class="navbar" role="navigation" aria-label="main navigation">
+  <div class="navbar-brand">
+    <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+      <span aria-hidden="true"></span>
+    </a>
+  </div>
+  <div class="navbar-menu">
+    <div class="navbar-start" style="flex-grow: 1; justify-content: center;">
+      <div class="navbar-item has-dropdown is-hoverable">
+        <a class="navbar-link">
+          More Research
+        </a>
+        <div class="navbar-dropdown">
+          <a class="navbar-item" href="https://UniGraspTransformer.github.io">
+            UniGraspTransformer
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+-->
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <h1 class="title is-1 publication-title"><span
+                style="font-family: 'Courier New', Courier, monospace; font-size: 115%;">CogACT</span>:<br><span
+                style="font-size:2.22rem;">A Foundational Vision-Language-Action Model for Synergizing Cognition and
+                Action in Robotic Manipulation</span></h1>
+            <!-- TODO: add author homepage -->
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <!-- <a href="">Qixiu Li</a><sup>*,1</sup>, -->
+                Qixiu Li<sup>*†,2</sup>,
+              </span>
+              <span class="author-block">
+                <!-- <a href="">Yaobo Liang</a><sup>1</sup>, -->
+                Yaobo Liang<sup>*‡,1</sup>,
+              </span>
+              <span class="author-block">
+                <!-- <a href="">Zeyu Wang</a><sup>1</sup>, -->
+                Zeyu Wang<sup>*†,2</sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                <!-- <a href="">Lin Luo</a><sup></sup>, -->
+                Lin Luo<sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <!-- <a href="">Xi Chen</a><sup></sup>, -->
+                Xi Chen<sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <!-- <a href="">Mozheng Liao</a><sup>1</sup>, -->
+                Mozheng Liao<sup>†,3</sup>,
+              </span>
+
+              <span class="author-block">
+                <!-- <a href="">Fangyun Wei</a><sup>1</sup>, -->
+                Fangyun Wei<sup>1</sup>,
+              </span>
+
+              <span class="author-block">
+                <!-- <a href="">Yu Deng</a><sup></sup>, -->
+                Yu Deng<sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <!-- <a href="">Sicheng Xu</a><sup></sup>, -->
+                Sicheng Xu<sup>1</sup>,
+              </span>
+
+              <span class="author-block">
+                <!-- <a href="">Yizhong Zhang</a><sup></sup>, -->
+                Yizhong Zhang<sup>1</sup>,
+              </span>
+              <br>
+
+              <span class="author-block">
+                <!-- <a href="">Xiaofan Wang</a><sup></sup>, -->
+                Xiaofan Wang<sup>†,4</sup>,
+              </span>
+              <span class="author-block">
+                <!-- <a href="">Bei Liu</a><sup></sup>, -->
+                Bei Liu<sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <!-- <a href="">Jianlong Fu</a><sup></sup>, -->
+                Jianlong Fu<sup>1</sup>,
+              </span>
+
+              <span class="author-block">
+                <!-- <a href="">Jianmin Bao</a><sup></sup>, -->
+                Jianmin Bao<sup>1</sup>,
+              </span>
+              <span class="author-block">
+                <!-- <a href="">Dong Chen</a><sup></sup>, -->
+                Dong Chen<sup>1</sup>,
+              </span>
+
+              <span class="author-block">
+                <!-- <a href="">Yuanchun Shi</a><sup></sup>, -->
+                Yuanchun Shi<sup>2</sup>,
+              </span>
+              <br>
+              <span class="author-block">
+                <!-- <a href="">Jiaolong Yang</a><sup></sup>, -->
+                Jiaolong Yang<sup>‡,1</sup>,
+              </span>
+              <span class="author-block">
+                <!-- <a href="">Beining Guo</a><sup></sup> -->
+                Baining Guo<sup>1</sup>
+              </span>
+            </div>
+
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">
+                <font size="-0.4"><sup>*</sup>Equal contribution &nbsp;</font>
+              </span>
+              <span class="author-block">
+                <font size="-0.4"><sup>†</sup>Interns at Microsoft Research &nbsp;</font>
+              </span>
+              <span class="author-block">
+                <font size="-0.4"><sup>‡</sup>Project Leads. Email: {yalia,jiaoyan}@microsoft.com</font>
+              </span><br>
+
+
+              <span class="author-block"><sup>1</sup>Microsoft Research Asia&nbsp;</span>
+              <span class="author-block"><sup>2</sup>Tsinghua University&nbsp;</span>
+              <span class="author-block"><sup>3</sup>USTC&nbsp;</span>
+              <span class="author-block"><sup>4</sup>Institute of Microelectronics, CAS</span>
+            </div>
+
+
+            <div class="column has-text-centered">
+              <div class="publication-links">
+                <!-- PDF Link. -->
+                <span class="link-block">
+                  <a href="./CogACT_paper.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                    <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                    </span>
+                    <span>Paper</span>
+                  </a>
+                </span>
+                <span class="link-block">
+                  <a href="./CogACT_paper.pdf" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                    <span class="icon">
+                      <i class="ai ai-arxiv"></i>
+                    </span>
+                    <span>arXiv</span>
+                  </a>
+                </span>
+                <!-- Code Link. -->
+                <span class="link-block">
+                  <a href="https://github.com/microsoft/CogACT" class="external-link button is-normal is-rounded is-dark"  target="_blank">
+                    <span class="icon">
+                      <i class="fab fa-github"></i>
+                    </span>
+                    <span>Code</span>
+                  </a>
+                </span>
+                <!-- Model Link. -->
+                <span class="link-block">
+                  <a href="https://huggingface.co/CogACT" class="external-link button is-normal is-rounded is-dark"  target="_blank">
+                    <span class="icon">
+                      🤗
+                    </span>
+                    <span>Model</span>
+                  </a>
+                </span>
+              </div>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="hero teaser">
+    <div class="container is-max-desktop">
+      <div class="hero-body">
+        <!--<video id="teaser" autoplay muted loop playsinline height="100%">
+        <source src="./static/videos/teaser.mp4"
+                type="video/mp4">
+      </video>-->
+        <img src="static/images/teaser.png" />
+        <div class="content has-text-justified">
+          <p>
+            We present a new advanced VLA architecture derived from VLM. Unlike previous works that directly repurpose
+            VLM for action prediction by simple action quantization, we propose a componentized VLA architecture that
+            has a specialized action module conditioned on VLM output. We systematically study the design of the action
+            module and demonstrate the strong performance enhancement with diffusion action transformers for action
+            sequence modeling, as well as their favorable scaling behaviors. We also conduct comprehensive experiments
+            and ablation studies to evaluate the efficacy of our models with varied designs. The evaluation on 4 robot
+            embodiments in simulation and real work shows that our model not only significantly surpasses existing VLAs
+            in task performance but also exhibits remarkable adaptation to new robots and generalization to unseen
+            objects and backgrounds. It exceeds the average success rates of OpenVLA which has a similar model size (7B)
+            with ours by over 35% in simulated evaluation and 55% in real robot experiments. It also outperforms the
+            large RT-2-X model (55B) by 18% absolute success rates in simulation.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="hero is-light is-small">
+    <div class="hero-body">
+      <div class="container" style="display: flex; gap: 5px;">
+        <div class="item item-steve has-text-centered">
+          <video poster="" id="steve video" autoplay controls muted loop playsinline height="100%"
+            style="border-radius: 10px;">
+            <source src="static/videos/realman/realman_teaser_u.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-steve has-text-centered">
+          <video poster="" id="steve video" autoplay controls muted loop playsinline height="100%"
+            style="border-radius: 10px;">
+            <source src="static/videos/realman/realman_teaser_s.mp4" type="video/mp4">
+          </video>
+        </div>
+        <div class="item item-chair-tp has-text-centered">
+          <video poster="" id="chair-tp video" autoplay controls muted loop playsinline height="100%"
+            style="border-radius: 10px;">
+            <source src="static/videos/realman/realman_teaser_d.mp4" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <p class="has-text-centered">Pretrained on 0.4M trajectories from the Open X-Embodiment dataset, the CogACT-VLA model quickly adapts to a new robot and environment with a few hundred trajectories. <br />
+        It not only demonstrates significantly higher success rates than previous VLAs, but also exhibits remarkable object generalization capabilities and task robustness.
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="column is-full-width">
+        <h3 class="title is-3">The CogACT Model</h3>
+
+        <div class="content has-text-justified has-text-centered">
+          <img src="static/images/model.png" />
+          <p class="has-text-centered"> CogACT-VLA model architecture. </p>
+          <p>
+            Our core idea is to leverage the cognitive information extracted by powerful VLMs to guide the action prediction of a specialized action module. CogACT-VLA has three componentized modules:
+          <ul>
+            <li><b>Vision Module</b>: Processes raw image input into a set of perceptual tokens. It consists of
+              powerful vision transformers, <a href="https://arxiv.org/abs/2304.07193" target="_blank">DINOv2</a> and <a
+                href="https://arxiv.org/abs/2303.15343" target="_blank">SigLIP</a>, pretrained on Internet-scale image data, to
+              capture rich visual features and a comprehensive semantic understanding of the observations.</li>
+            <li><b>Language Module</b>: Integrates visual information and language instructions and conducting
+              cognitive reasoning. Here, a <a href="https://arxiv.org/abs/2307.09288" target="_blank">LLAMA-2</a> is applied as the
+              backbone, which was trained on 2 trillion language tokens.</li>
+            <li><b>Action Module</b>: Receives the cognition feature as an input condition to generate a series of
+              actions. Given that real-world physical actions are continuous and often multi-modal, we predict them
+              using a diffusion modeling process. To model complex and temporally-correlated actions, we apply a <a
+                href="https://arxiv.org/abs/2212.09748" target="_blank">Diffusion Transformer (DiT)</a> as a powerful backbone for
+              the action decoding process.</li>
+          </ul>
+          </p>
+          <p>
+            The Vision and Language modules are built upon a pretrained <a href="https://arxiv.org/abs/2402.07865" target="_blank">Prismatic-7B</a> VLM and finetuned end-to-end with the Action module of up to 300M parameters. Our primary training data is a subset of the <a href="https://robotics-transformer-x.github.io/" target="_blank">Open X-Embodiment
+              (OXE)</a> dataset. 
+          </p>
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="15%"></td>
+              <td width="70%">
+                <img src="static/images/inference.png" />
+                <p class="has-text-centered"> Adaptive ensemble strategy at inference. </p>
+              </td>
+              <td width="15%"></td>
+            </tr>
+          </table>
+          <p>
+            During inference, our model predicts actions for multiple time steps. We propose an <b>Adaptive Action Ensemble (AAE)</b>
+            strategy which considers similarities between actions to be aggregated as shown in the above figure. This
+            approach avoids unreasonable aggregation of actions from different modes.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <section class="section">
+    <div class="container is-max-desktop">
+      <div class="column is-full-width">
+        <h3 class="title is-3" style="margin-top: -30pt;">Experimental Results</h3>
+
+        <h3 class="title is-4">Evaluation on SIMPLER</h3>
+        <div class="content has-text-justified has-text-centered">
+          <p>
+            We first evaluate CogACT-VLA in the <a href="https://github.com/simpler-env/SimplerEnv" target="_blank">SIMPLER</a> evaluation
+            environment. This simulation platform is designed to bridge the real-to-sim control and visual gap for the Google robot and the WidowX robot.
+            A strong correlation between the performance in SIMPLER and in the real world has been demonstrated by extensive evaluation of various VLA models. We compare CogACT-VLA with existing VLA models, including <a href="https://arxiv.org/abs/2212.06817" target="_blank">RT-1</a>, <a href="https://arxiv.org/abs/2310.08864" target="_blank">RT-1-X</a>, <a href="https://arxiv.org/abs/2310.08864" target="_blank">RT-2-X</a>, <a href="https://arxiv.org/abs/2405.12213" target="_blank">Octo</a>, and <a href="https://arxiv.org/abs/2406.09246" target="_blank">OpenVLA</a>.
+          </p>
+          <p>
+            SIMPLER offers two evaluation settings: <i>Visual Matching</i>, which closely replicates the scene appearance of real-world tasks, and <i>Variant Aggregations</i>,
+            which introduces variations by modifying the background, lighting, distractors, table
+            textures, etc.
+          </p>
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="12%"></td>
+              <td width="76%">
+                <img src="static/images/simpler-google.png" />
+                <p class="has-text-centered" style="margin-top: -0.5em;"> Evaluation and comparison on SIMPLER's Google robot tasks. All
+                  models are trained on the OXE dataset <span style="font-size: 80%;">(except for RT-1 which is trained only on OXE's Google
+                  robot subset).</span></p>
+              </td>
+              <td width="12%"></td>
+            </tr>
+          </table>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="9%"></td>
+              <td width="82%">
+                <img src="static/images/simpler-widowx.png" />
+                <p class="has-text-centered" style="margin-top: -0.5em;"> Evaluation and comparison on SIMPLER's WidowX robot tasks.</p>
+              </td>
+              <td width="9%"></td>
+            </tr>
+          </table>
+
+          <p>
+            The results show that CogACT-VLA outperforms existing VLA models on both the Google robot and the WidowX robot tasks by a large margin.  
+          </p>
+        </div>
+
+        <h3 class="title is-4">Real-world Evaluation with Realman Robot</h3>
+        <div class="content has-text-justified has-text-centered">
+          <p>
+            We evaluate CogACT-VLA with a <a href="https://www.realman-robotics.com/rm75-b.html" target="_blank">Realman robot</a> to
+            perform real-world tasks such as picking, stacking, and placing various colored objects. We collected a
+            dataset with 391 demonstrations in total and finetune different models. As shown in the table below, our model outperforms
+             OpenVLA and Octo-Base and achieves the highest average success rates.
+          </p>
+
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="9%"></td>
+              <td width="82%">
+                <img src="static/images/Realman.png" />
+                <p class="has-text-centered" style="margin-top: -0.5em;"> Real-world evaluation with the Realman robot across three tasks, each with 20-40 trials of random configurations. All
+                  models are pretrained on OXE and finetuned on the same data.</p>
+              </td>
+              <td width="9%"></td>
+            </tr>
+          </table>
+
+          <h4 class="title is-6">Generalization Capability - <i>Unseen Tables with Unseen Distractors</i></h4>
+          <div style="margin-top: -1em;">
+            We test our model on tables with various colors different from training data, thus
+            increasing the visual complexity of the task. Additionally, unseen objects are placed on the table as
+            distractors.
+          </div>
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="9%"></td>
+              <td width="82%">
+                <img src="static/images/Realman-unseen table.png" />
+                <p class="has-text-centered" style="margin-top: -0.5em;"> Generalization evaluation on the Realman Robot with unseen
+                  tables and distractors.</p>
+              </td>
+              <td width="9%"></td>
+            </tr>
+          </table>
+
+          <h4 class="title is-6">Generalization Capability - <i>Unseen Colors, Shapes, and Categories.</i></h4>
+          <div style="margin-top: -1em;">
+            We also test our model's ability to handle new color combinations of known objects, unfamiliar shapes like triangular and arched blocks, small cans, and cylindrical blocks for stacking
+            tasks, as well as new object categories such as hammers.
+          </div>
+          <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+            <tr>
+              <td width="29%"></td>
+              <td width="42%">
+                <img src="static/images/Realman-unseen color.png" />
+                <p class="has-text-centered" style="margin-top: -0.5em;"> Generalization evaluation on the Realman Robot with unseen
+                  colors, shapes, and categories.</p>
+              </td>
+              <td width="29%"></td>
+            </tr>
+          </table>
+
+
+        </div>
+
+
+        <h3 class="title is-4">Real-World Evaluation with Franka Robot</h3>
+        <p>
+          We further use an <a href="https://franka.de/" target="_blank">Franka arm</a> to evaluate our model's real-world
+          performance and compare it with previous methods. Similar to the experiments on the Realman robot, we collect training data and finetune different models for evaluation.
+        </p>
+        <br />
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="29%"></td>
+            <td width="42%">
+              <img src="static/images/widowx.png"/>
+              <p class="has-text-centered" style="margin-top: -0.5em;"> Real-world evaluation on the Franka Robot across four tasks. All models
+                are pretrained on OXE and finetuned on the same data.</p>
+            </td>
+            <td width="29%"></td>
+          </tr>
+        </table>
+        <br/>
+
+
+        <h3 class="title is-3" style="margin-top: 60px;">Video Result Samples</h3>
+        <h4 class="title is-4">Realman Robot</h4>
+        <div class="container">
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="item item-steve has-text-centered">
+              <video poster="" id="steve video" autoplay controls muted loop playsinline>
+                <source src="static/videos/realman/realman_u3.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-steve has-text-centered">
+              <video poster="" id="steve video" autoplay controls muted loop playsinline>
+                <source src="static/videos/realman/realman_u5.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-chair-tp has-text-centered">
+              <video poster="" id="chair-tp video" autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/realman/realman_u1.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-chair-tp has-text-centered">
+              <video poster="" id="chair-tp video" autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/realman/realman_u6.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-fullbody has-text-centered">
+              <video poster="" id="fullbody video" autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/realman/realman_u2.mp4" type="video/mp4">
+                <track kind="subtitles" src="static/vtt/clamp.vtt" srclang="en" label="English" default>
+              </video>
+            </div>
+            <div class="item item-shiba has-text-centered">
+              <video poster="" id="shiba video" autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/realman/realman_u7.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <div style="width: 100%; text-align: center;">Examples of the Realman robot executing tasks involving
+            <i>unseen objects</i>, driven by our CogACT-VLA.
+          </div>
+        </div>
+        <br />
+        <div class="container">
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="item item-steve has-text-centered">
+              <video poster="" id="steve video" autoplay controls muted loop playsinline>
+                <source src="static/videos/realman/realman_s6.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-steve has-text-centered">
+              <video poster="" id="steve video" autoplay controls muted loop playsinline>
+                <source src="static/videos/realman/realman_s4.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-chair-tp has-text-centered">
+              <video poster="" id="chair-tp video" autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/realman/realman_s5.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-chair-tp has-text-centered">
+              <video poster="" id="chair-tp video" autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/realman/realman_s1.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-fullbody has-text-centered">
+              <video poster="" id="fullbody video" autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/realman/realman_s3.mp4" type="video/mp4">
+                <track kind="subtitles" src="static/vtt/clamp.vtt" srclang="en" label="English" default>
+              </video>
+            </div>
+            <div class="item item-shiba has-text-centered">
+              <video poster="" id="shiba video" autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/realman/realman_s2.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <div style="width: 100%; text-align: center;">Examples of the Realman robot following multiple instructions in a row, driven by our CogACT-VLA.
+          </div>
+        </div>
+        <br />
+        <div class="container">
+          <div id="results-carousel" class="carousel results-carousel">
+            <div class="item item-steve has-text-centered">
+              <video poster="" id="steve video" autoplay controls muted loop playsinline>
+                <source src="static/videos/realman/realman_d1.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-steve has-text-centered">
+              <video poster="" id="steve video" autoplay controls muted loop playsinline>
+                <source src="static/videos/realman/realman_d4.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-chair-tp has-text-centered">
+              <video poster="" id="chair-tp video" autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/realman/realman_d2.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="item item-chair-tp has-text-centered">
+              <video poster="" id="chair-tp video" autoplay controls muted loop playsinline height="100%">
+                <source src="static/videos/realman/realman_d3.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+          <div style="width: 100%; text-align: center;">Examples of the Realman robot executing tasks under dynamic disturbances, driven by our CogACT-VLA.
+          </div>
+        </div>
+        <br />
+
+        <h4 class="title is-4" style="width: 100%;">Franka Robot</h4>
+        <div style="width: 100%; margin-bottom: 20px; margin-top: -10px;">Examples of the Franka robot executing tasks with our model.
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column  has-text-centered">
+            <video autoplay="" controls="" muted="" loop="" playsinline="" width="85%" style="border-radius: 10px;">
+              <source src="static/videos/franka/franka_3.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="column  has-text-centered">
+            <video autoplay="" controls="" muted="" loop="" playsinline="" width="85%" style="border-radius: 10px;">
+              <source src="static/videos/franka/franka_1.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <div class="columns is-vcentered interpolation-panel">
+          <div class="column  has-text-centered">
+            <video autoplay="" controls="" muted="" loop="" playsinline="" width="85%" style="border-radius: 10px;">
+              <source src="static/videos/franka/franka_2.mp4" type="video/mp4">
+            </video>
+          </div>
+          <div class="column  has-text-centered">
+            <video autoplay="" controls="" muted="" loop="" playsinline="" width="85%" style="border-radius: 10px;">
+              <source src="static/videos/franka/franka_4.mp4" type="video/mp4">
+            </video>
+          </div>
+        </div>
+        <br />
+
+        <h4 class="title is-4" style="width: 100%;">Google Robot <span style="font-size: 70%;">(in SIMPLER)</span></h4>
+        <div style="width: 100%; margin-bottom: 20px; margin-top: -10px;">Examples of the Google robot executing tasks with our model in SIMPLER.
+        </div>
+        <div class="content has-text-justified has-text-centered">
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column  has-text-centered">
+              <h6>Pick Coke can.</h6>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/google_robot_pick_coke_can_1.mp4" type="video/mp4">
+              </video>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/google_robot_pick_coke_can_2.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column  has-text-centered">
+              <h6>Move Pepsi can near orange.</h6>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/google_robot_move_near_1.mp4" type="video/mp4">
+              </video>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/google_robot_move_near_2.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column  has-text-centered">
+              <h6>Close bottom drawer.</h6>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/google_robot_close_drawer_1.mp4" type="video/mp4">
+              </video>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/google_robot_close_drawer_2.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column  has-text-centered">
+              <h6>Open top drawer; Place apple into top drawer.</h6>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/google_robot_open_drawer_put_into_1.mp4" type="video/mp4">
+              </video>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/google_robot_open_drawer_put_into_2.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+        <br />
+
+        <h4 class="title is-4">WidowX Robot <span style="font-size: 70%;">(in SIMPLER)</span></h4>
+        <div style="width: 100%; margin-bottom: 20px; margin-top: -10px;">Examples of the WidowX robot executing tasks with our model in SIMPLER.
+        </div>
+        <div class="content has-text-justified has-text-centered">
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column  has-text-centered">
+              <h6>Put carrot on plate.</h6>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/widowx_put_carrot_on_plate_1.mp4" type="video/mp4">
+              </video>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/widowx_put_carrot_on_plate_2.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column  has-text-centered">
+              <h6>Put the spoon on the towel.</h6>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/widowx_put_the_spoon_on_the_towel_1.mp4" type="video/mp4">
+              </video>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/widowx_put_the_spoon_on_the_towel_2.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+
+          <div class="columns is-vcentered interpolation-panel">
+            <div class="column  has-text-centered">
+              <h6>Stack the green block on the yellow block.</h6>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/widowx_stack_block_1.mp4" type="video/mp4">
+              </video>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/widowx_stack_block_2.mp4" type="video/mp4">
+              </video>
+            </div>
+            <div class="column  has-text-centered">
+              <h6>Put eggplant into yellow basket.</h6>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/widowx_put_eggplant_to_basket_1.mp4" type="video/mp4">
+              </video>
+              <video autoplay="" controls="" muted="" loop="" playsinline="" width="49%">
+                <source src="static/videos/simpler/widowx_put_eggplant_to_basket_2.mp4" type="video/mp4">
+              </video>
+            </div>
+          </div>
+        </div>
+        <br />
+
+        <h3 class="title is-3" style="margin-top: 30pt;">Ablation Study</h3>
+        <h4 class="title is-5">Action Model Scaling</h4>
+        <p>
+          We evaluate various action model architectures on Google Robot (GR) and WidowX Robot (WR) in SIMPLER. The architectures
+          examined include MLPs with depths of 3 and 7 layers, respectively, as well as a
+          series of DiT of varying sizes. The results show that both MLP and DiT structures show improved success rates with increased model
+          size, and DiT significantly outperforms MLP. Notably, DiT-Large achieves the highest average success
+          rate of 64.8%. The average success rate of transformers is approximately linearly related to the logarithm
+          of the model size, indicating a favorable scaling behavior of the action module with diffusion
+          transformers.
+        </p>
+
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="25%"></td>
+            <td width="45%">
+              <img src="static/images/ablation-model_size.png" />
+            </td>
+            <td width="25%"></td>
+          </tr>
+        </table>
+        <h4 class="title is-5">Adaptive Action Ensemble</h4>
+        <p>
+          We evaluate the proposed Adaptive Action Ensemble approach against the two ensemble strategies introduced in
+          <a href="https://arxiv.org/abs/2304.13705" target="_blank">ACT</a> – Action Chunking and Temporal Ensemble. The results show that
+          our proposed Adaptive Ensemble outperforms others, and we attribute this to the efficacy of our adaptive similarity
+          weighting between the current and historical predictions.
+        </p>
+        <table width="100%" align="center" border="0" cellspacing="0" cellpadding="0">
+          <tr>
+            <td width="25%"></td>
+            <td width="42%">
+              <img src="static/images/ablation-action.png" />
+            </td>
+            <td width="25%"></td>
+          </tr>
+        </table>
+        <br />
+
+
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="BibTeX">
+    <div class="container is-max-desktop content">
+      <h2 class="title">BibTeX</h2>
+      <pre>
+<code>@article{li2024cogact,
+  title={CogACT: A Foundational Vision-Language-Action Model for Synergizing Cognition and Action in Robotic Manipulation},
+  author={Qixiu, Li and Yaobo, Liang and Zeyu, Wang and Lin, Luo and Xi, Chen and Mozheng, Liao and Fangyun, Wei and Yu, Deng and Sicheng, Xu and Yizhong, Zhang and Xiaofan, Wang and Bei, Liu and Jianlong, Fu and Jianmin, Bao and Dong, Chen and Yuanchun, Shi and Jiaolong, Yang and Baining, Guo},
+  journal = {arXiv preprint},
+  year={2024},
+}  
+  </code></pre>
+    </div>
+  </section>
+
+
+  <footer class="footer">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-8">
+          <div class="content">
+            <p> Website adapted from <a href="https://github.com/nerfies/nerfies.github.io">NeRFies</a> under a <a
+                href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0
+                International</a>
+            </p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+
+</body>
+
+</html>
